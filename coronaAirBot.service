@@ -1,0 +1,17 @@
+[Unit]
+Description=Telegram Service @CoronaAirBot
+After=mariadb.service
+Requires=mariadb.service
+
+
+[Service]
+User=<your_UserName>
+Type=simple
+WorkingDirectory=<PathToYourMainPY>
+Environment=TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# Example: dialect+driver://username:password@host:port/database
+Environment=DB_URL=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ExecStart=/usr/bin/python3.7 main.py
+
+[Install]
+WantedBy=multi-user.target
