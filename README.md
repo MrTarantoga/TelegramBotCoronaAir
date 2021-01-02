@@ -23,12 +23,10 @@ Requirements (tested with version):
 - [x] Pillow==8.0.1
 
 - [x] telegram==0.0.1
-  
-  
 
 I use maradb as database. The system is using SQLAlchemy, supported databases should not need a change in code. Need Tables:
 
-# chats
+### chats
 
 | Field   | Type                | Null | Key | Default | Extra          |
 | ------- | ------------------- | ---- | --- | ------- | -------------- |
@@ -38,7 +36,7 @@ I use maradb as database. The system is using SQLAlchemy, supported databases sh
 | sensor  | bigint(15) unsigned | NO   |     | NULL    |                |
 | start   | varchar(45)         | NO   |     | NULL    |                |
 
-# sgp_30
+### sgp_30
 
 | Field       | Type                | Null | Key | Default | Extra          |
 | ----------- | ------------------- | ---- | --- | ------- | -------------- |
@@ -53,10 +51,18 @@ I use maradb as database. The system is using SQLAlchemy, supported databases sh
 | TVOC        | int(5)              | NO   |     | NULL    |                |
 | timestamp   | varchar(45)         | NO   |     | NULL    |                |
 
-
-
 In the **coronaAirBot.service** You have to replace the:
 
 1. TOKEN: You have to get your own Telegram TOKEN please refer: [Telegram Bot API](https://core.telegram.org/bots/api)
 
 2. DB_URL: You have to set your Databse URI, please refer: [Engine Configuration](https://docs.sqlalchemy.org/en/13/core/engines.html)
+
+# How To Use:
+
+1. Use your MAC of your sensor (room) `00:80:41:ae:fd:7e`
+
+2. Remove `:` from MAC: `008041aefd7e`
+
+3. Convert hex into decimal: `550857801086`
+
+4. Copy this into a qr-code generator as plaintext
