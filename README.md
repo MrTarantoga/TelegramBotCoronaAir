@@ -66,3 +66,5 @@ In the **coronaAirBot.service** You have to replace the:
 3. Convert hex into decimal: `550857801086`
 
 4. Copy this into a qr-code generator as plaintext
+
+![image](https://github.com/MrTarantoga/TelegramBotCoronaAir/blob/main/qrcode.png)

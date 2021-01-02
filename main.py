@@ -17,6 +17,16 @@ from os import getenv
 TOKEN = getenv("TOKEN")
 DB_URL = getenv("DB_URL")
 
+if TOKEN is None and DB_URL is None:
+    print("TOKEN and DB_URL are not defined")
+    exit(1)
+elif TOKEN is None:
+    print("TOKEN is not in environment defined")
+    exit(1)
+elif DB_URL is None:
+    print("DB_URL is not defined")
+    exit(1)
+
 db = DBConnection(DB_URL)
 current_chats = list()
 
@@ -72,10 +82,10 @@ def state_machine_Wrapper(bot, que: Queue, ir: Interaction):
            # bot.send_message(chat_id=ir.chat_id, text="Are you still in the room?")
         elif "photo_message" in message.keys():
             print("Send picture")
-            picture = BytesIO(b64decode(bytes(message["photo_message"])))
+            picture = BytesIO(b64decode(bytes(message["photo_message"][0])))
             while True:
                 try:
-                    bot.send_photo(chat_id=ir.chat_id, photo=picture)
+                    bot.send_photo(chat_id=ir.chat_id, photo=picture, caption=message["photo_message"][1])
                     break
                 except:
                     pass

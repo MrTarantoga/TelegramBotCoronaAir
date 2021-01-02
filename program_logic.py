@@ -147,9 +147,10 @@ class Interaction(object):
     def __sendPicture(self, after_time: int, event: Event, DB_URL: str):
         while event.is_set():
             time.sleep(after_time)
-            if event.is_set(DB_URL):
+            if event.is_set():
+                caption = "Quality: {} - {}".format((datetime.now() - timedelta(seconds=after_time)).strftime("%m-%d-%YT%H:%M:%S"), datetime.now().strftime("%m-%d-%YT%H:%M:%S"))
                 photo = GetPictureOfeCO2(DB_URL).getPicture(datetime.now() - timedelta(seconds=after_time), datetime.now(), self.db.getChatSession(self.chat_id)[-1]["sensor"])[-1]
-                self.output_queue.put({"photo_message":bytearray(b64encode(photo.read()))})
+                self.output_queue.put({"photo_message":[bytearray(b64encode(photo.read())),caption]})
     
     def __del__(self):
         self.getMessageEvent.clear()
