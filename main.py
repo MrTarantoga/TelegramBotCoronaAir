@@ -31,8 +31,11 @@ def start(update, context):
 def help(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2,
                             text="""Hi, I'm the help text
-*/quality*: Send the quality of the last 90 min \(argument: past time in minutes\)
-Send me a picture with the room qr code to log in""")
+*/quality*: Send the quality of the last 90 min \(argument: past time in minutes\).
+
+Send me a picture with the room qr code to log in.
+
+Write */logout* to remove a room.""")
 
 def send_picture_eCO2(update, context):
     print("chat_id: {}".format(update.effective_chat.id))
