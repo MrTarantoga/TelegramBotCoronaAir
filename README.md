@@ -55,7 +55,7 @@ I use maradb as database. The system is using SQLAlchemy, supported databases sh
 
 
 
-In the **coronaAirBot.service** You havet to replace the:
+In the **coronaAirBot.service** You have to replace the:
 
 1. TOKEN: You have to get your own Telegram TOKEN please refer: [Telegram Bot API](https://core.telegram.org/bots/api)
 
