@@ -91,6 +91,7 @@ def state_machine_Wrapper(bot, que: Queue, ir: Interaction):
                     pass
         elif "finish" in message.keys():
             que.task_done()
+            ir.stop()
             break
         elif "text_message" in message.keys():
             while True:
@@ -109,8 +110,8 @@ def qr_code_for_auth(update, context):
     picture_media = requests.get(picture["file_path"])
 
     prl = Interaction(update.effective_chat.id,db,picture_media.content,que)
-    if picture_media.content in current_user:
-        current_user[picture_media.content]["queue"].put({"finish":None})
+    if update.effective_chat.id in current_user.keys():
+        current_user[update.effective_chat.id]["queue"].put({"finish":None})
 
     current_user[update.effective_chat.id] = {
         "sensor_id": int(decode(Image.open(BytesIO(picture_media.content)))[-1].data.decode("ascii")),
@@ -132,7 +133,7 @@ def log_out(update, context):
             context.bot.send_photo(chat_id=update.effective_chat.id, photo=picture, caption="Final Report: {}".format(timdelta_string))
         except Exception as err:
             print(err)
-            context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, no data collected during log-in, not report created")
+            context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, no data collected during log-in, no report created")
         current_user[update.effective_chat.id]["thread_handler"].join()
         del current_user[update.effective_chat.id]
     else:

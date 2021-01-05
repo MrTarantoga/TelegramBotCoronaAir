@@ -136,13 +136,12 @@ class Interaction(object):
     
     def __getMessage(self, sleep_time: int, event: Event) -> str:
         while event.is_set():
-            if event.is_set():
-                self.state[self.current_state].run()
-                self.message = self.state[self.current_state].message
-                if self.message != "":
-                    self.output_queue.put({"text_message":self.message})
-                self.current_state = self.state[self.current_state].nextState()
-                time.sleep(sleep_time)
+            self.state[self.current_state].run()
+            self.message = self.state[self.current_state].message
+            if self.message != "":
+                self.output_queue.put({"text_message":self.message})
+            self.current_state = self.state[self.current_state].nextState()
+            time.sleep(sleep_time)
 
     def __sendPicture(self, after_time: int, event: Event, DB_URL: str):
         while event.is_set():
@@ -152,7 +151,7 @@ class Interaction(object):
                 photo = GetPictureOfeCO2(DB_URL).getPicture(datetime.now() - timedelta(seconds=after_time), datetime.now(), self.db.getChatSession(self.chat_id)[-1]["sensor"])[-1]
                 self.output_queue.put({"photo_message":[bytearray(b64encode(photo.read())),caption]})
     
-    def __del__(self):
+    def stop(self):
         self.getMessageEvent.clear()
         self.sendPictureEvent.clear()
 
